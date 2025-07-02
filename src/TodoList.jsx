@@ -76,7 +76,9 @@ export default function TodoList() {
     setTodo((prevTodos) =>
       prevTodos.map((todo) => {
         if (todo.id === id) {
-          return { ...todo, done: !todo.done };
+          return { ...todo, done: !todo.done }
+          strike.style.textDecoration 
+          ;
         } else {
           return todo;
         }
@@ -113,6 +115,7 @@ export default function TodoList() {
             &nbsp; &nbsp; &nbsp;
             <label>
               <input
+              className="strike"
                 type="checkbox"
                 checked={todo.done}
                 onChange={() => MarkAsDone(todo.id)}
