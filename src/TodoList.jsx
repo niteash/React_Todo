@@ -14,10 +14,32 @@ export default function TodoList() {
   let updateTaskValue = (event) => {
     setNewTodo(event.target.value);
   };
-  let deleteTodo = (id) =>{
-    setTodo((prevTodos)=> todos.filter((prevTodos) => prevTodos.id != id))
+  let deleteTodo = (id) => {
+    setTodo((prevTodos) => todos.filter((prevTodos) => prevTodos.id != id));
+  };
 
-  }
+  let upperCaseAll = () => {
+    setTodo(
+      todos.map((todo) => {
+        return {
+          ...todo,
+          task: todo.task.toUpperCase(),
+        };
+      })
+    );
+  };
+
+  let LowerCaseAll = () => {
+    setTodo(
+      todos.map((todo) => {
+        return {
+          ...todo,
+          task: todo.task.toLowerCase(),
+        };
+      })
+    );
+  };
+
   return (
     <>
       <p>Todo List</p>
@@ -30,7 +52,6 @@ export default function TodoList() {
       />
       <br />
       <br />
-
       <button onClick={addNewTask}>Add Task</button>
       <br />
       <br />
@@ -41,10 +62,14 @@ export default function TodoList() {
           <li key={todo.id}>
             <span> {todo.task}</span>
             &nbsp; &nbsp; &nbsp;
-            <button onClick={()=>deleteTodo(todo.id)}>Delete</button>
+            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
           </li>
         ))}
       </ul>
+      <br></br>
+      <button onClick={upperCaseAll}>UpperCase All</button>
+      &nbsp; &nbsp; &nbsp;
+      <button onClick={LowerCaseAll}>LowerCase All</button>
     </>
   );
 }
