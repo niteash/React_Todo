@@ -2,12 +2,14 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 export default function TodoList() {
-  let [todos, setTodo] = useState([{ task: "sample task", id: uuidv4() }]);
+  let [todos, setTodo] = useState([
+    { task: "sample task", id: uuidv4(), done: false },
+  ]);
   let [newTodo, setNewTodo] = useState("");
 
   let addNewTask = () => {
     setTodo((prevTodo) => {
-      return [...prevTodo, { task: newTodo, id: uuidv4() }];
+      return [...prevTodo, { task: newTodo, id: uuidv4(), done: false }];
     });
     setNewTodo("");
   };
@@ -20,10 +22,10 @@ export default function TodoList() {
 
   let upperCaseAll = () => {
     setTodo(
-      todos.map((todo) => {
+      todos.map((prevTodos) => {
         return {
-          ...todo,
-          task: todo.task.toUpperCase(),
+          ...prevTodos,
+          task: prevTodos.task.toUpperCase(),
         };
       })
     );
@@ -31,15 +33,56 @@ export default function TodoList() {
 
   let LowerCaseAll = () => {
     setTodo(
-      todos.map((todo) => {
+      todos.map((prevTodos) => {
         return {
-          ...todo,
-          task: todo.task.toLowerCase(),
+          ...prevTodos,
+          task: prevTodos.task.toLowerCase(),
         };
       })
     );
   };
 
+  let UpperCaseOne = (id) => {
+    setTodo((prevTodos) =>
+      prevTodos.map((todo) => {
+        if (todo.id === id) {
+          return {
+            ...todo,
+            task: todo.task.toUpperCase(),
+          };
+        } else {
+          return todo;
+        }
+      })
+    );
+  };
+
+  let LowerCaseOne = (id) => {
+    setTodo((prevTodos) =>
+      prevTodos.map((todo) => {
+        if (todo.id === id) {
+          return {
+            ...todo,
+            task: todo.task.toLowerCase(),
+          };
+        } else {
+          return todo;
+        }
+      })
+    );
+  };
+
+  let MarkAsDone = (id) => {
+    setTodo((prevTodos) =>
+      prevTodos.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, done: !todo.done };
+        } else {
+          return todo;
+        }
+      })
+    );
+  };
   return (
     <>
       <p>Todo List</p>
@@ -63,6 +106,19 @@ export default function TodoList() {
             <span> {todo.task}</span>
             &nbsp; &nbsp; &nbsp;
             <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+            &nbsp; &nbsp; &nbsp;
+            <button onClick={() => UpperCaseOne(todo.id)}>UpperCase</button>
+            &nbsp; &nbsp; &nbsp;
+            <button onClick={() => LowerCaseOne(todo.id)}>LowerCase</button>
+            &nbsp; &nbsp; &nbsp;
+            <label>
+              <input
+                type="checkbox"
+                checked={todo.done}
+                onChange={() => MarkAsDone(todo.id)}
+              />
+              Mark As Done
+            </label>
           </li>
         ))}
       </ul>
