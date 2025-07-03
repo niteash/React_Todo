@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import './App.css';
+
 
 export default function TodoList() {
   let [todos, setTodo] = useState([
@@ -76,59 +78,56 @@ export default function TodoList() {
     setTodo((prevTodos) =>
       prevTodos.map((todo) => {
         if (todo.id === id) {
-          return { ...todo, done: !todo.done }
-          strike.style.textDecoration 
-          ;
+          return { ...todo, done: !todo.done };
         } else {
           return todo;
         }
       })
     );
   };
-  return (
-    <>
-      <p>Todo List</p>
-      <br />
-      <input
-        type="text"
-        placeholder="add your tasks"
-        value={newTodo}
-        onChange={updateTaskValue}
-      />
-      <br />
-      <br />
+ return (
+  <div className="todo-container">
+    <p className="todo-header">Todo List</p>
+
+    <input
+      type="text"
+      placeholder="add your tasks"
+      value={newTodo}
+      onChange={updateTaskValue}
+      className="todo-input"
+    />
+
+    <div className="todo-buttons">
       <button onClick={addNewTask}>Add Task</button>
-      <br />
-      <br />
-      <hr />
-      <h4>Tasks To do</h4>
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>
-            <span> {todo.task}</span>
-            &nbsp; &nbsp; &nbsp;
+      <button onClick={upperCaseAll}>UpperCase All</button>
+      <button onClick={LowerCaseAll}>LowerCase All</button>
+    </div>
+
+    <hr />
+    <h4>Tasks To do</h4>
+
+    <ul>
+      {todos.map((todo) => (
+        <li key={todo.id} className="task-item">
+          <span className={todo.done ? "strike" : ""}>{todo.task}</span>
+
+          <div className="task-buttons">
             <button onClick={() => deleteTodo(todo.id)}>Delete</button>
-            &nbsp; &nbsp; &nbsp;
             <button onClick={() => UpperCaseOne(todo.id)}>UpperCase</button>
-            &nbsp; &nbsp; &nbsp;
             <button onClick={() => LowerCaseOne(todo.id)}>LowerCase</button>
-            &nbsp; &nbsp; &nbsp;
+
             <label>
               <input
-              className="strike"
                 type="checkbox"
                 checked={todo.done}
                 onChange={() => MarkAsDone(todo.id)}
               />
-              Mark As Done
+              Done
             </label>
-          </li>
-        ))}
-      </ul>
-      <br></br>
-      <button onClick={upperCaseAll}>UpperCase All</button>
-      &nbsp; &nbsp; &nbsp;
-      <button onClick={LowerCaseAll}>LowerCase All</button>
-    </>
-  );
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
 }

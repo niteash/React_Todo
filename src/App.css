@@ -40,3 +40,76 @@
 .read-the-docs {
   color: #888;
 }
+
+
+/* TodoList.css */
+.todo-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
+  font-family: sans-serif;
+}
+
+.todo-header {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.todo-input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.todo-buttons,
+.task-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.todo-buttons button,
+.task-buttons button {
+  flex: 1 1 auto;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.task-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.5rem;
+}
+
+.task-item span {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  word-break: break-word;
+}
+
+input[type="checkbox"] {
+  margin-left: 0.5rem;
+}
+
+/* Strike-through when marked done */
+.strike:checked + span {
+  text-decoration: line-through;
+  color: gray;
+}
+
+/* Responsive tweaks */
+@media (min-width: 600px) {
+  .task-item {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .task-buttons {
+    flex-wrap: nowrap;
+  }
+}
