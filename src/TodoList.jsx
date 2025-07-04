@@ -109,7 +109,7 @@ export default function TodoList() {
     <ul>
       {todos.map((todo) => (
         <li key={todo.id} className="task-item">
-          <span className={todo.done ? "strike" : ""}>{todo.task}</span>
+          <span style={todo.done ? {textDecorationLine : "line-through"} : {}} className={todo.done ? "strike" : ""}>{todo.task}</span>
 
           <div className="task-buttons">
             <button onClick={() => deleteTodo(todo.id)}>Delete</button>
@@ -122,7 +122,7 @@ export default function TodoList() {
                 checked={todo.done}
                 onChange={() => MarkAsDone(todo.id)}
               />
-              Done
+             Mark As Done
             </label>
           </div>
         </li>
